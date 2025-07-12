@@ -3,27 +3,29 @@ import { getNotes } from "../../../../lib/api";
 import type { GetNotes } from "../../../../lib/api";
 import NotesClient from "./Notes.client";
 
-// type Props = {
-//   params: Promise<{ slug: string[] }>;
-// };
+type Props = {
+  params: Promise<{ slug: string[] }>;
+};
 
-export default async function NotesPage() {
+export default async function NotesPage({ params }: Props) {
 
-  // const { slug } = await params; 
-
+  const { slug } = await params; 
 
   const queryClient = new QueryClient();
 
-  const data: GetNotes = await getNotes(1, 12, '');
+  const rawTag = slug?.[0] || '';
+  const tag = rawTag.toLowerCase() === 'all' ? '' : rawTag;
+
+  const data: GetNotes = await getNotes(1, 12, '', tag);
 
   await queryClient.prefetchQuery({
-    queryKey: ["notes", 1, ""], 
+    queryKey: ["notes", 1, "", tag], 
     queryFn: () => Promise.resolve(data),
   });
 
   return (
     <HydrationBoundary state={dehydrate(queryClient)}>
-      <NotesClient initialData={data} />
+      <NotesClient initialData={data} tag={tag} />
     </HydrationBoundary>
   );
 }

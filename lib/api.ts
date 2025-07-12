@@ -2,10 +2,10 @@ import axios from "axios";
 import type { Note } from "../types/note"
 
 
-
 export type GetNotes = {
   notes: Note[];
   totalPages: number;
+  tag: string;
 }
 
 
@@ -19,13 +19,19 @@ const request = axios.create({
 export const getNotes = async (
   page = 1,
   perPage = 12,
-  search = ""
+  search = "",
+  tag = ""
 ): Promise<GetNotes> => {
   const params: Record<string, string | number> = { page, perPage };
 
   if (search.trim() !== "") {
     params.search = search.trim();
   }
+
+  if (tag.trim().toLowerCase() !== "all" && tag.trim() !== "") {
+    params.tag = tag.trim();
+  }
+  
 
   const { data } = await request.get<GetNotes>("/notes", {
     headers: {

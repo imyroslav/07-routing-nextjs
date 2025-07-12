@@ -6,12 +6,13 @@ import { useDebounce } from "use-debounce";
 import { getNotes } from "../../../../lib/api";
 import SearchBox from "../../../../components/SearchBox/SearchBox";
 import NoteList from "../../../../components/NoteList/NoteList";
+import { NoteForm } from "../../../../components/NoteForm/NoteForm";
 import Pagination from "../../../../components/Pagination/Pagination";
-import { NoteModal } from "../../../../components/NoteModal/NoteModal";
+import Modal from "../../../../components/Modal/Modal";
 import type { GetNotes } from "../../../../lib/api";
 import css from "./page.module.css";
 
-export default function Notes({ initialData }: { initialData: GetNotes }) {
+export default function Notes({ initialData, tag }: { initialData: GetNotes, tag: string }) {
   const [page, setPage] = useState(1); 
   const [searchTerm, setSearchTerm] = useState('');
   const [debouncedSearchTerm] = useDebounce(searchTerm, 500);
@@ -23,8 +24,8 @@ export default function Notes({ initialData }: { initialData: GetNotes }) {
   };
 
   const { data, isLoading, isError } = useQuery<GetNotes>({
-    queryKey: ['notes', page, debouncedSearchTerm], 
-    queryFn: () => getNotes(page, 12, debouncedSearchTerm),
+    queryKey: ['notes', page, debouncedSearchTerm, tag], 
+    queryFn: () => getNotes(page, 12, debouncedSearchTerm, tag === "all" ? undefined : tag),
     placeholderData: keepPreviousData,
     initialData: page === 1 && debouncedSearchTerm === '' ? initialData : undefined,
   });
@@ -39,7 +40,9 @@ export default function Notes({ initialData }: { initialData: GetNotes }) {
       </header>
 
       {isModalOpen && (
-      <NoteModal onClose={() => setIsModalOpen(false)} />
+      <Modal onClose={() => setIsModalOpen(false)}>
+        <NoteForm onClose={() => setIsModalOpen(false)}/>
+      </Modal>
       )}
 
       {isLoading && <p>Loading...</p>}
