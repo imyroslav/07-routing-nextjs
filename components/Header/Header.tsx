@@ -1,5 +1,6 @@
 import Link from "next/link"
 import css from "./Header.module.css";
+import TagsMenu from "../TagsMenu/TagsMenu";
 
 
 export default function Header() {
@@ -17,6 +18,7 @@ export default function Header() {
                         <Link href="/notes">Notes</Link>
                     </li>
                 </ul>
+                <TagsMenu />
             </nav>
         </header>
     )
