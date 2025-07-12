@@ -3,11 +3,11 @@ import type { Note } from "../types/note"
 
 
 
-
 export type GetNotes = {
   notes: Note[];
   totalPages: number;
 }
+
 
 const request = axios.create({
     baseURL: "https://notehub-public.goit.study/api",

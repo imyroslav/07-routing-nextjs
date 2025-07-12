@@ -6,3 +6,12 @@ export interface Note {
   updatedAt: string,
   tag: string
 }
+
+export interface Tag {
+  id: string,
+  title: string,
+  content: string,
+  createdAt: string,
+  updatedAt: string,
+  tag: string
+}
