@@ -2,7 +2,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useParams } from "next/navigation";
 import { fetchNoteById } from "../../../lib/api";
-import css from "./NoteDetails.module.css";
+import css from "../../@modal/(.)notes/[id]/NotePreview.module.css";
 
 const NoteDetailsClient = () => {
   const { id } = useParams<{ id: string }>();
@@ -24,15 +24,15 @@ const NoteDetailsClient = () => {
 
   return (
     <div className={css.container}>
-	<div className={css.item}>
-	  <div className={css.header}>
-	    <h2>{note.title}</h2>
-	  </div>
-	  <p className={css.content}>{note.content}</p>
-      <button className={css.editBtnDetails}>Edit note</button>
-	  <p className={css.date}>{formattedDate}</p>
-	</div>
-</div>
+	    <div className={css.item}>
+	      <div className={css.header}>
+	        <h2>{note.title}</h2>
+	      </div>
+	      <p className={css.content}>{note.content}</p>
+        <button className={css.editBtnDetails}>Edit note</button>
+	      <p className={css.date}>{formattedDate}</p>
+	    </div>
+    </div>
   );
 };
 

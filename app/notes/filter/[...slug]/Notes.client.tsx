@@ -25,7 +25,7 @@ export default function Notes({ initialData, tag }: { initialData: GetNotes, tag
 
   const { data, isLoading, isError } = useQuery<GetNotes>({
     queryKey: ['notes', page, debouncedSearchTerm, tag], 
-    queryFn: () => getNotes(page, 12, debouncedSearchTerm, tag === "all" ? undefined : tag),
+    queryFn: () => getNotes(page, 12, debouncedSearchTerm, tag === "All" ? undefined : tag),
     placeholderData: keepPreviousData,
     initialData: page === 1 && debouncedSearchTerm === '' ? initialData : undefined,
   });

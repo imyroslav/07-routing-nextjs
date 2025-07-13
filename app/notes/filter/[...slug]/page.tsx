@@ -13,10 +13,10 @@ export default async function NotesPage({ params }: Props) {
 
   const queryClient = new QueryClient();
 
-  const rawTag = slug?.[0] || '';
-  const tag = rawTag.toLowerCase() === 'all' ? '' : rawTag;
+  const rawTag = slug?.[0] || "";
+  const tag = rawTag === "All" ? "" : rawTag;
 
-  const data: GetNotes = await getNotes(1, 12, '', tag);
+  const data: GetNotes = await getNotes(1, 12, "", tag);
 
   await queryClient.prefetchQuery({
     queryKey: ["notes", 1, "", tag], 

@@ -3,8 +3,8 @@
 import { useQuery } from "@tanstack/react-query";
 import Modal from "../../../../components/Modal/Modal";
 import { fetchNoteById } from "../../../../lib/api";
-import { useParams, useRouter } from "next/navigation"
-import css from './NotePreview.module.css'
+import { useParams, useRouter } from "next/navigation";
+import css from "./NotePreview.module.css";
 
 const NotePreview = () => {
     const { id } = useParams<{ id: string}>();
